@@ -1,4 +1,4 @@
-const { withAndroidManifest } = require("expo/config-plugins");
+const { withAndroidManifest, withProjectBuildGradle, withSettingsGradle } = require("expo/config-plugins");
 
 const serviceName = "expo.modules.tunnelguardcore.TunnelGuardVpnService";
 const permissions = [
@@ -9,7 +9,7 @@ const permissions = [
 ];
 
 module.exports = function withTunnelGuardVpn(config) {
-  return withAndroidManifest(config, (config) => {
+  config = withAndroidManifest(config, (config) => {
     const manifest = config.modResults.manifest;
     manifest["uses-permission"] = manifest["uses-permission"] || [];
     for (const permission of permissions) {
@@ -25,6 +25,46 @@ module.exports = function withTunnelGuardVpn(config) {
         $: { "android:name": serviceName, "android:permission": "android.permission.BIND_VPN_SERVICE", "android:exported": "false", "android:foregroundServiceType": "dataSync" },
         "intent-filter": [{ action: [{ $: { "android:name": "android.net.VpnService" } }] }],
       });
+    }
+    return config;
+  });
+
+  config = withProjectBuildGradle(config, (config) => {
+    const marker = "// Heni Tech VPN verified native core repository";
+    if (!config.modResults.contents.includes(marker)) {
+      const repository = `
+    ${marker}
+    ivy {
+      url "https://github.com/HeniJohn/Apk/releases/download/native-core-v1.13.18/"
+      patternLayout { artifact "[artifact].[ext]" }
+      metadataSources { artifact() }
+      content { includeModule "com.henitech.vpn", "libbox" }
+    }`;
+      config.modResults.contents = config.modResults.contents.replace(
+        "    maven { url 'https://www.jitpack.io' }",
+        `    maven { url 'https://www.jitpack.io' }${repository}`,
+      );
+    }
+    return config;
+  });
+
+  return withSettingsGradle(config, (config) => {
+    const marker = "// Heni Tech VPN verified native core repository";
+    if (!config.modResults.contents.includes(marker)) {
+      config.modResults.contents += `
+
+${marker}
+dependencyResolutionManagement {
+  repositories {
+    ivy {
+      url = uri("https://github.com/HeniJohn/Apk/releases/download/native-core-v1.13.18/")
+      patternLayout { artifact("[artifact].[ext]") }
+      metadataSources { artifact() }
+      content { includeModule("com.henitech.vpn", "libbox") }
+    }
+  }
+}
+`;
     }
     return config;
   });

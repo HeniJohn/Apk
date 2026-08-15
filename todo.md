@@ -54,3 +54,6 @@
 - [x] Verified libbox integration, config compiler, fi workflow fixes GitHub source repositorytti sync gochuu
 - [x] GitHub source sync keessaa hafan native Android module files add godhuu
 - [x] Cloud Publish Android Prebuild failure logs qorachuun configuration sirreessuu
+- [x] Cloud Publish Gradle failure logs qorachuun Android native packaging sirreessuu
+- [x] Direct libbox AAR dependency Maven repository formatatti convert godhee cloud Gradle bundle sirreessuu
+- [ ] Cloud-compatible native core dependency fix GitHub source repositorytti sync gochuu

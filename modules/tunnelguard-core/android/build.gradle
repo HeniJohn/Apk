@@ -17,10 +17,22 @@ android {
 }
 
 dependencies {
-  // Generated from a pinned GPLv3 sing-box source revision in the cloud workflow.
-  // The binary is intentionally excluded from source control until checksum review.
-  def coreArtifact = file("libs/libbox.aar")
-  if (coreArtifact.exists()) {
-    implementation(files(coreArtifact))
+  // The verified AAR is an external Ivy artifact, not a direct local AAR. This
+  // allows Android Gradle Plugin to package this Expo library for cloud builds.
+  implementation("com.henitech.vpn:libbox:1.13.18@aar")
+}
+
+repositories {
+  ivy {
+    url = uri("https://github.com/HeniJohn/Apk/releases/download/native-core-v1.13.18/")
+    patternLayout {
+      artifact("[artifact].[ext]")
+    }
+    metadataSources {
+      artifact()
+    }
+    content {
+      includeModule("com.henitech.vpn", "libbox")
+    }
   }
 }
