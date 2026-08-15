@@ -32,6 +32,13 @@ async function removeSecret(key: string) {
   await SecureStore.deleteItemAsync(key);
 }
 
+/** Reads a profile credential only for the immediate native start handoff. */
+export async function getProfileCredential(profile: TunnelProfile): Promise<string | undefined> {
+  if (!profile.secretKey) return undefined;
+  if (Platform.OS === "web") return typeof sessionStorage === "undefined" ? undefined : sessionStorage.getItem(profile.secretKey) ?? undefined;
+  return (await SecureStore.getItemAsync(profile.secretKey))?.trim() || undefined;
+}
+
 export async function getProfiles(): Promise<TunnelProfile[]> {
   const value = await AsyncStorage.getItem(PROFILES_KEY);
   if (!value) return [];

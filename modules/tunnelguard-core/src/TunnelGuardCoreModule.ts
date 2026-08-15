@@ -2,7 +2,7 @@ import { requireNativeModule } from "expo-modules-core";
 import { Platform } from "react-native";
 
 export type NativeEngineStatus = {
-  state: "development-build-required" | "permission-required" | "core-not-bundled" | "idle";
+  state: "development-build-required" | "permission-required" | "core-not-bundled" | "idle" | "starting" | "connected" | "error";
   detail: string;
   nativeModule: boolean;
 };

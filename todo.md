@@ -45,5 +45,10 @@
 - [ ] Android NDK/Go CI workflow keessatti ARM ABI lamaaf signed core artifacts build gochuu
 - [x] Cloud source repository workflow keessatti libbox AAR build fi checksum artifact upload qopheessuu
 - [x] Cloud source repository workflow file fi auditable libbox artifact instructions qopheessuu
-- [ ] GitHub HeniJohn/Apk repository keessatti Heni Tech VPN source fi workflow sync gochuu
-- [ ] GitHub workflow run godhanii libbox artifact output verify gochuu
+- [x] GitHub HeniJohn/Apk repository keessatti Heni Tech VPN source fi workflow sync gochuu
+- [x] GitHub workflow run godhanii libbox artifact output verify gochuu
+- [x] GitHub Actions workflow keessatti invalid Android environment reference sirreessuu, run godhuu, fi libbox artifact verify gochuu
+- [x] Cloud artifact checksum file portable relative path fayyadamuun verify gochuu
+- [x] Verified libbox v1.13.18 AAR fayyadamuun Android VpnService fi Expo Kotlin lifecycle bridge integrate gochuu
+- [x] Android Gradle native module version/SDK configuration errors sirreessuun debug APK compile validate gochuu
+- [ ] Verified libbox integration, config compiler, fi workflow fixes GitHub source repositorytti sync gochuu

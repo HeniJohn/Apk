@@ -41,6 +41,9 @@ app-example
 # generated native folders
 /ios
 /android
+.native-build/
+modules/tunnelguard-core/android/build/
+modules/tunnelguard-core/android/libs/libbox.aar
 
 # IDE
 .vscode/

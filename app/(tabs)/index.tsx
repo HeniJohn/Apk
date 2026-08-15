@@ -5,8 +5,9 @@ import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from "react-nati
 
 import { InjectorNavigation } from "@/components/injector-navigation";
 import { appendDiagnosticEvent } from "@/lib/diagnostic-events";
+import { createNativeEngineConfig } from "@/lib/native-engine-config";
 import { createEngineRequest } from "@/lib/tunnel-engine-request";
-import { AppPreferences, draftFromProfile, getPreferences, getProfiles, protocolInfo, savePreferences, TunnelProfile } from "@/lib/tunnel-store";
+import { AppPreferences, draftFromProfile, getPreferences, getProfileCredential, getProfiles, protocolInfo, savePreferences, TunnelProfile } from "@/lib/tunnel-store";
 import { getEngineStatus, requestVpnPermission, startEngine } from "@/modules/tunnelguard-core";
 
 export default function HomeScreen() {
@@ -27,7 +28,9 @@ export default function HomeScreen() {
       if (!active.secretKey && needsCredential(active.protocol)) { await appendDiagnosticEvent("warning", "Start was blocked because the selected profile has no stored credential."); Alert.alert("Credential required", "Edit the profile to add its private key or password before starting."); editActive(); return; }
       const permission = await requestVpnPermission();
       if (permission.state === "requested") { await appendDiagnosticEvent("info", "Android VPN permission was requested."); Alert.alert("VPN permission requested", "Approve Android VPN permission, then tap Start again."); return; }
-      const result = await startEngine(JSON.stringify(createEngineRequest(draftFromProfile(active), { profileId: active.id, hasStoredSecret: Boolean(active.secretKey) })));
+      const request = createEngineRequest(draftFromProfile(active), { profileId: active.id, hasStoredSecret: Boolean(active.secretKey) });
+      const credential = await getProfileCredential(active);
+      const result = await startEngine(JSON.stringify(createNativeEngineConfig(request, credential)));
       await appendDiagnosticEvent("info", result.detail);
       Alert.alert("Engine status", result.detail);
     } catch (error) { await appendDiagnosticEvent("error", error instanceof Error ? error.message : "Could not prepare VPN."); Alert.alert("Could not start", error instanceof Error ? error.message : "Try again."); } finally { setStarting(false); }
