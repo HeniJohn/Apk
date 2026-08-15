@@ -66,7 +66,10 @@ jobs:
           test -f libbox.aar
           mkdir -p "$GITHUB_WORKSPACE/native-artifacts"
           cp libbox.aar "$GITHUB_WORKSPACE/native-artifacts/libbox.aar"
-          sha256sum "$GITHUB_WORKSPACE/native-artifacts/libbox.aar" > "$GITHUB_WORKSPACE/native-artifacts/libbox.aar.sha256"
+          (
+            cd "$GITHUB_WORKSPACE/native-artifacts"
+            sha256sum libbox.aar > libbox.aar.sha256
+          )
           cp "$GITHUB_WORKSPACE/native-core-commit.txt" "$GITHUB_WORKSPACE/native-artifacts/"
 
       - name: Upload auditable native artifact
