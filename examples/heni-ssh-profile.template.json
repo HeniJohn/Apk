@@ -1,0 +1,16 @@
+{
+  "format": "tunnelguard/v1",
+  "exportedAt": "2026-08-15T00:00:00.000Z",
+  "profiles": [
+    {
+      "name": "Heni SSH",
+      "protocol": "ssh",
+      "host": "169.128.190.38",
+      "port": 22,
+      "username": "vps",
+      "dnsMode": "automatic",
+      "transport": "raw",
+      "security": "none"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+name: Build Heni Tech VPN native core
+
+on:
+  workflow_dispatch:
+    inputs:
+      sing_box_ref:
+        description: "Pinned sing-box tag or commit to build"
+        required: true
+        default: "v1.13.18"
+      ndk_version:
+        description: "Android NDK version"
+        required: true
+        default: "28.0.13004108"
+
+permissions:
+  contents: read
+
+jobs:
+  build-libbox:
+    name: Build libbox AAR
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      ANDROID_HOME: ${{ env.ANDROID_HOME }}
+      ANDROID_NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/${{ inputs.ndk_version }}
+
+    steps:
+      - name: Check out Heni Tech VPN source
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24.2"
+
+      - name: Set up Android command-line tools
+        uses: android-actions/setup-android@v3
+
+      - name: Install pinned Android components
+        run: |
+          yes | sdkmanager --licenses
+          sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0" "ndk;${{ inputs.ndk_version }}"
+
+      - name: Check out pinned sing-box source
+        run: |
+          git clone --depth 1 --branch "${{ inputs.sing_box_ref }}" https://github.com/SagerNet/sing-box.git third_party/sing-box
+          cd third_party/sing-box
+          git rev-parse HEAD > "$GITHUB_WORKSPACE/native-core-commit.txt"
+
+      - name: Build GPLv3 libbox Android artifact
+        run: |
+          cd third_party/sing-box
+          make lib_install
+          make lib_android
+          test -f libbox.aar
+          mkdir -p "$GITHUB_WORKSPACE/native-artifacts"
+          cp libbox.aar "$GITHUB_WORKSPACE/native-artifacts/libbox.aar"
+          sha256sum "$GITHUB_WORKSPACE/native-artifacts/libbox.aar" > "$GITHUB_WORKSPACE/native-artifacts/libbox.aar.sha256"
+          cp "$GITHUB_WORKSPACE/native-core-commit.txt" "$GITHUB_WORKSPACE/native-artifacts/"
+
+      - name: Upload auditable native artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: heni-tech-vpn-libbox-${{ inputs.sing_box_ref }}
+          path: native-artifacts/
+          if-no-files-found: error
+          retention-days: 14

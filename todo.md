@@ -1,0 +1,49 @@
+# Project TODO
+
+- [x] Qorannoo feature ummataa HTTP Injector fi daangaa Android VpnService xumuru
+- [x] Dizaayinii mobile portrait, data model, fi feature roadmap galmeessuu
+- [x] App interface TunnelGuard (Dashboard, Servers, Settings, Diagnostics) ijaaruu
+- [x] Profile model fi AsyncStorage persistence qopheessuu
+- [x] Config import fi validation flow ijaaruu
+- [x] Secret-free multi-profile export fi native share flow ijaaruu
+- [x] Connection state simulation/test harness ijaaruu
+- [x] VPN lifecycle state-machine fi secret-redaction diagnostics security tests ijaaruu
+- [x] Android-native VpnService integration strategy murteessuu
+- [ ] GPLv3 sing-box core embed, Android ABI packaging, fi license notices qopheessuu
+- [ ] DNSTT/SlowDNS native adapter license audit fi Android packaging qopheessuu
+- [ ] Protocol jalqabaa (WireGuard yookaan SSH) fi server provisioning murteessuu
+- [ ] WireGuard native tunnel module fi profile fields ijaaruu
+- [x] Multi-protocol profile schema, native bridge scaffold, fi secret-free engine request compiler ijaaruu
+- [ ] SSH, TLS, WebSocket tunnel module fi profile fields ijaaruu
+- [ ] V2Ray/Xray (VMess, VLESS, SOCKS) engine integration fi profile fields ijaaruu
+- [ ] Shadowsocks engine integration fi profile fields ijaaruu
+- [ ] Hysteria/QUIC engine integration fi profile fields ijaaruu
+- [ ] DNS tunnel (DNSTT/SlowDNS) architecture fi profile fields ijaaruu
+- [ ] Multi-protocol config import/export, encryption, fi compatibility tests ijaaruu
+- [x] Diagnostics fi privacy-safe log viewer ijaaruu
+- [x] Native architecture, licensing, protocol coverage, fi Android build constraints document gochuu
+- [x] Logo mataa isaa uumu, asset branding guutuu, fi app configuration haaromsuu
+- [x] Unit tests, type-check, fi core flow validation raawwachuu
+- [x] Maqaa fi branding gara Heni Tech VPNtti jijjiiruu
+- [ ] User-owned server/gateway protocol, domain, fi credential workflow walitti qabuu
+- [x] Server hin jirre native core fi later server integration backlog galmeessuu
+- [ ] Android SDK/CI environment keessatti native engine build fi handshake validation raawwachuu
+- [x] Versioning, signed Android release, fi Play Store update workflow document gochuu
+- [x] Server hin jirre placeholder/onboarding fi later WireGuard profile setup qopheessuu
+- [x] Preview URL fi Home screen screenshot render bug sirreessuu
+- [x] HTTP Injector-inspired original dark Home layout fi Start action ijaaruu
+- [x] Home, Log, Tools, Help tab navigation ijaaruu
+- [x] Manual protocol selector, SNI, DNS, fi profile edit cards ijaaruu
+- [x] Connection log viewer fi tools actions ijaaruu
+- [x] Injector-style settings controls fi help screen ijaaruu
+- [x] Manual configuration flow persistent storage waliin walitti hidhuu
+- [ ] Native engine package build-ready gochuu; real connection test server argamuun booda raawwachuu
+- [x] Authorized SSH endpoint port fi host identity reachability test raawwachuu; secrets log hin gochuu
+- [x] Authorized SSH manual profile import template password hin qabne qopheessuu
+- [ ] Protocol hunda user-provided manual server profile qofa irraa runtime config uumu
+- [ ] App keessatti public server hardcode/bundle hin goone jechuun release audit raawwachuu
+- [ ] Android NDK/Go CI workflow keessatti ARM ABI lamaaf signed core artifacts build gochuu
+- [x] Cloud source repository workflow keessatti libbox AAR build fi checksum artifact upload qopheessuu
+- [x] Cloud source repository workflow file fi auditable libbox artifact instructions qopheessuu
+- [ ] GitHub HeniJohn/Apk repository keessatti Heni Tech VPN source fi workflow sync gochuu
+- [ ] GitHub workflow run godhanii libbox artifact output verify gochuu
