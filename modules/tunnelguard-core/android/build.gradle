@@ -1,0 +1,26 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'expo.modules.tunnelguardcore'
+version = '1.0.0'
+
+android {
+  namespace "expo.modules.tunnelguardcore"
+  compileSdkVersion 35
+  defaultConfig {
+    minSdkVersion 24
+    versionCode 1
+    versionName "1.0.0"
+  }
+}
+
+dependencies {
+  // Generated from a pinned GPLv3 sing-box source revision in the cloud workflow.
+  // The binary is intentionally excluded from source control until checksum review.
+  def coreArtifact = file("libs/libbox.aar")
+  if (coreArtifact.exists()) {
+    implementation(files(coreArtifact))
+  }
+}
